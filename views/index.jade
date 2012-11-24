@@ -1,0 +1,21 @@
+extends layout
+
+block content
+	div(class="container")
+		h1= title
+		p Welcome to #{title}
+		div.row
+			div.span4
+				audio(controls="controls")
+					source(src="files/salsalesson.mp3", type="audio/mp3")
+			div.span5
+				button#steps.btn.btn-primary Add steps
+				button#steps-clear.btn.btn-danger Clear
+		div.controls.controls-row.steps
+			input#1.span1
+			input#2.span1
+			input#3.span1
+			input#4.span1
+			input#5.span1
+			input#6.span1
+			button#generate.btn.btn-small.span2 Generate
