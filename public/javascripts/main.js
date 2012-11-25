@@ -11,14 +11,23 @@ jsapp = {
 	stepMap: function(){
 		var self = this;
 		var map = {}
-		var i = parseFloat(self.start);
 		var s = 1;
 		var duration = self.sound.durationEstimate;
-		while(i < parseFloat(duration)){
-			map[i] = s;
+		var steps = self.steps.slice();
+		var last_steps = steps.slice();
+		while(parseInt(steps.slice(-1)) < duration){
+			var offset = last_steps.slice(-6, -5) - last_steps.slice(-last_steps.length, -last_steps.length + 1);
+			var new_steps = jQuery.map(last_steps, function(o, i){
+				return o + offset;
+			})
+			steps.push.apply(steps, new_steps);
+			last_steps = new_steps.slice();
+		}
+		for(var i = 0; i <= steps.length - 1; i++){
+			if(s == 4) s = 5;
 			if(s == 8) s = 1;
-			else s++;
-			i = i + self.step;
+			map[steps[i]] = s;
+			s++;
 		}
 		return map;
 	},
@@ -38,14 +47,6 @@ jsapp = {
 		var self = this;
 		jQuery('#generate').on('click', function(){
 			self.start = self.steps[0];
-			self.step = jQuery.map(jsapp.steps, function(o, i){
-				if(i > 0){
-					return o - jsapp.steps[i - 1];
-				}
-			}).reduce(function(a, b){
-				var sum = a + b;
-				return sum / 2;
-			})
 			console.log(self.stepMap());
 			self.sound.setPosition(0);
 			self.printSteps();
@@ -89,3 +90,5 @@ jQuery(document).ready(function(){
 	jsapp.bindButtons();
 	jsapp.smDeploy();
 })
+
+//[9456, 9796, 10214, 10893, 11285, 11703, 12382, 12800, 13192, 13871, 14289, 14655, 15412, 15778, 16196, 16901, 17267, 17685]
