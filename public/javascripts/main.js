@@ -47,27 +47,6 @@ jsapp = {
 		var first = list.slice(-list.length, -list.length + 1);
 		return self.getFloat(Big(last).minus(first));
 	},
-	bindButtons: function(){
-		var self = this;
-		jQuery('#steps').on('click', function(){
-			var currentTime = self.getCurrentTime();
-			self.steps[self.steps.length] = currentTime;
-			console.log(currentTime);
-		});
-		jQuery('#steps-clear').on('click', function(){
-			self.steps = [];
-		})
-		self.generateSteps();
-	},
-	generateSteps: function(){
-		var self = this;
-		jQuery('#generate').on('click', function(){
-			self.start = self.steps[0];
-			console.log(self.stepMap());
-			self.printSteps();
-			self.restartPlay();
-		});
-	},
 	restartPlay: function(){
 		var self = this;
 		if(self.sound){
@@ -111,7 +90,6 @@ jsapp = {
 			var step = stepMap[currentTime];
 			if(step) {
 				self.showStep(step);
-				//console.log(step);
 			}
 		}, 1)
 	},
@@ -158,7 +136,6 @@ jsapp = {
 
 jQuery(document).ready(function(){
 	jsapp.audio = jQuery('audio').get(0);
-	jsapp.bindButtons();
 	//jsapp.smDeploy();
 })
 

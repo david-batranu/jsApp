@@ -1,0 +1,23 @@
+extends layout
+
+block scripts
+	script(src='/javascripts/view.js')
+block heading
+	h1= title
+	p Editing #{title}
+
+block content
+	div.row
+		div.span12
+			p
+	div.row
+		div.span4
+		div.span4
+			audio(controls="controls")
+				source(src=path, type="audio/mp3")
+		div.span4
+	div.row
+		div.span2
+		div.span8
+			div#counter
+		div.span2
