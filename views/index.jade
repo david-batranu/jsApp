@@ -1,14 +1,29 @@
 extends layout
 
 block content
-	div(class="container")
-		h1= title
-		p Welcome to #{title}
+	div.container.heading
 		div.row
-			div.span4
+			div.span1
+			div.span10
+				h1= title
+				p Welcome to #{title}
+			div.span1
+	div.container.content
+		div.row
+			div.span12
+				p
+		div.row
+			div.span1
+			div.span5
 				audio(controls="controls")
 					source(src="files/salsalesson.mp3", type="audio/mp3")
 			div.span5
 				button#steps.btn.btn-primary Add steps
 				button#steps-clear.btn.btn-danger Clear
 				button#generate.btn.btn-info Generate
+			div.span1
+		div.row
+			div.span2
+			div.span8
+				div#counter
+			div.span2
