@@ -1,27 +1,27 @@
 extends layout
 
 block scripts
-	script(src='/javascripts/edit.js')
+    script(src='/javascripts/edit.js')
 block heading
-	h1= title
-	p Editing #{title}
+    h1= title
+    p Editing #{title}
 
 block content
-	div.row
-		div.span12
-			p
-	div.row
-		div.span1
-		div.span5
-			audio(controls="controls")
-				source(src=path, type="audio/mp3")
-		div.span5
-			button#steps.btn.btn-primary Add steps
-			button#steps-clear.btn.btn-danger Clear
-			button#generate.btn.btn-info Generate
-		div.span1
-	div.row
-		div.span2
-		div.span8
-			div#counter
-		div.span2
+    div.row
+        div.span12
+            p
+    div.row
+        div.span1
+        div.span5
+            audio(controls="controls")
+                source(src=path, type="audio/mp3")
+        div.span5
+            button#steps.btn.btn-primary Add steps
+            button#steps-clear.btn.btn-danger Clear
+            button#generate.btn.btn-info Generate
+        div.span1
+    div.row
+        div.span2
+        div.span8
+            div#counter
+        div.span2
