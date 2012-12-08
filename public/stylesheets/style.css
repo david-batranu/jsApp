@@ -11,7 +11,30 @@ div#counter {
 	margin-top: 30px;
 	margin-bottom: 30px;
 	text-align: center;
+	height: 150px;
 }
 div#counter .badge {
 	zoom: 10;
+}
+div#stepdisplay {
+	border: 1px solid red;
+	height: 500px;
+}
+div#stepdisplay .step {
+	border: 1px solid blue;
+	height: 70px;
+}
+.step.lfoot {
+	background-image: url('/images/lfoot.png');
+	background-repeat: no-repeat;
+}
+.step.rfoot {
+	background-image: url('/images/rfoot.png');
+	background-repeat: no-repeat;
+	background-position: 30px;
+}
+.step.lfoot.rfoot {
+	background-image: url('/images/lrfoot.png');
+	background-repeat: no-repeat;
+	background-position: 0;
 }

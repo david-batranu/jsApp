@@ -83,13 +83,14 @@ jsapp = {
             });
         });
     },
-    handleAudio: function(stepMap){
+    handleAudio: function(stepMap, callback){
         var self = this;
         setInterval(function(){
             var currentTime = self.getCurrentTime();
             var step = stepMap[currentTime];
             if(step) {
                 self.showStep(step);
+                callback(step);
             }
         }, 1)
     },
