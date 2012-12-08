@@ -4,7 +4,7 @@ block scripts
     script(src='/javascripts/view.js')
 block heading
     h1= title
-    p Editing #{title}
+    p Viewing #{title}
 
 block content
     div.row
@@ -24,15 +24,63 @@ block content
     div.row
         div.span1
         div.span10
-            div#stepdisplay.row
-                div.row
-                    div.span1
-                    div.span1.step.top
-                div.row
-                    div.span1.step.left
-                    div.span1
-                    div.span1.step.right
-                div.row
-                    div.span1
-                    div.span1.step.bottom
-        div.span1
+            div.row
+                div#stepdisplay.span12
+                    div.span3.leftright.dancesection
+                        h4 Basic step (side to side)
+                        div.row
+                        div.row
+                            div.span1
+                                div.stepcontainer
+                                    div.step.left
+                            div.span1
+                                div.stepcontainer
+                                    div.step.center
+                            div.span1
+                                div.stepcontainer
+                                    div.step.right
+                        div.row
+                    div.span3.guapea.dancesection
+                        h4 Guapea
+                        div.row
+                            div.span1
+                            div.span1
+                                div.stepcontainer
+                                    div.step.top
+                            div.span1
+                        div.row
+                            div.span1
+                                div.stepcontainer
+                                    div.step.left
+                            div.span1
+                                div.stepcontainer
+                                    div.step
+                            div.span1
+                                div.stepcontainer
+                                    div.step.right
+                        div.row
+                            div.span1
+                            div.span1
+                                div.stepcontainer
+                                    div.step.bottom
+                            div.span1
+                    div.span3.frontback.dancesection
+                        h4 Basic step (front to back)
+                        div.row
+                            div.span1
+                            div.span1
+                                div.stepcontainer
+                                    div.step.top
+                            div.span1
+                        div.row
+                            div.span1
+                            div.span1
+                                div.stepcontainer
+                                    div.step.center
+                            div.span1
+                        div.row
+                            div.span1
+                            div.span1
+                                div.stepcontainer
+                                    div.step.bottom
+                            div.span1

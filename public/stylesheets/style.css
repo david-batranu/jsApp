@@ -1,40 +1,60 @@
 body {
-	background: #49AFCD;
+    background: #49AFCD;
 }
 div.container {
-	background: #fff;
+    background: #fff;
 }
 div.content {
-	height: 1000px;
+    height: 1000px;
 }
 div#counter {
-	margin-top: 30px;
-	margin-bottom: 30px;
-	text-align: center;
-	height: 150px;
+    margin-top: 30px;
+    margin-bottom: 30px;
+    text-align: center;
+    height: 150px;
 }
 div#counter .badge {
-	zoom: 10;
+    zoom: 10;
 }
 div#stepdisplay {
-	border: 1px solid red;
-	height: 500px;
+    height: 500px;
+}
+div#stepdisplay .row {
+    min-height: 70px;
+}
+div#stepdisplay .stepcontainer {
+    border: 1px solid black;
+    border-radius: 50px;
+    -webkit-border-radius: 50px;
+    -moz-border-radius: 50px;
 }
 div#stepdisplay .step {
-	border: 1px solid blue;
-	height: 70px;
+    min-height: 70px;
+    
 }
 .step.lfoot {
-	background-image: url('/images/lfoot.png');
-	background-repeat: no-repeat;
+    background-image: url('/images/lfoot.png');
+    background-repeat: no-repeat;
 }
 .step.rfoot {
-	background-image: url('/images/rfoot.png');
-	background-repeat: no-repeat;
-	background-position: 30px;
+    background-image: url('/images/rfoot.png');
+    background-repeat: no-repeat;
+    background-position: 30px;
 }
 .step.lfoot.rfoot {
-	background-image: url('/images/lrfoot.png');
-	background-repeat: no-repeat;
-	background-position: 0;
+    background-image: url('/images/lrfoot.png');
+    background-repeat: no-repeat;
+    background-position: 0;
+}
+.step.fade {
+    opacity: 0.3;
+}
+.dancesection {
+    border: 1px solid black;
+    border-radius: 10px;
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+}
+.dancesection h4 {
+    text-align: center;
 }

@@ -3,8 +3,8 @@ if(!window.jsapp){
 }
 
 jsapp.view = {
-    stepmatrix: function(){
-        return {
+    stepmatrix: function(dance){
+        var guapea = {
             1: {'bottom': 'lfoot rfoot'},
             2: {'bottom': 'lfoot', 'right': 'rfoot'},
             3: {'right': 'lfoot rfoot'},
@@ -12,6 +12,28 @@ jsapp.view = {
             6: {'top': 'rfoot', 'left': 'lfoot'},
             7: {'left': 'lfoot', 'bottom': 'rfoot'}
         }
+        var leftright = {
+            1: {'left': 'lfoot', 'center': 'rfoot fade'},
+            2: {'left': 'lfoot', 'center': 'rfoot'},
+            3: {'center': 'lfoot rfoot'},
+            5: {'right': 'rfoot', 'center': 'lfoot fade'},
+            6: {'right': 'rfoot', 'center': 'lfoot'},
+            7: {'center': 'lfoot rfoot'}
+        }
+        var frontback = {
+            1: {'top': 'lfoot', 'center': 'rfoot fade'},
+            2: {'top': 'lfoot', 'center': 'rfoot'},
+            3: {'center': 'lfoot rfoot'},
+            5: {'bottom': 'rfoot', 'center': 'lfoot fade'},
+            6: {'bottom': 'rfoot', 'center': 'lfoot'},
+            7: {'center': 'lfoot rfoot'}
+        }
+        var known = {
+            'guapea': guapea,
+            'leftright': leftright,
+            'frontback': frontback
+        }
+        return known[dance]
     },
     startPlay: function(){
         var self = this;
@@ -23,15 +45,19 @@ jsapp.view = {
             21.08, 21.46, 21.88, 22.57, 22.96, 23.34
         ]
         jQuery(jsapp.audio).on('play', function(){
-            jsapp.handleAudio(jsapp.stepMap(), self.showDance);
+            jsapp.handleAudio(jsapp.stepMap(), function(step) {
+                jQuery('#stepdisplay .step').removeClass('lfoot rfoot fade');
+                self.showDance(step, 'guapea');
+                self.showDance(step, 'leftright');
+                self.showDance(step, 'frontback');
+            });
         })
     },
-    showDance: function(step){
-        var stepmatrix = jsapp.view.stepmatrix();
-        jQuery('#stepdisplay .step').removeClass('lfoot rfoot');
+    showDance: function(step, dance){
+        var stepmatrix = jsapp.view.stepmatrix(dance);
         for(var pos in stepmatrix[step]){
             var feet = stepmatrix[step][pos];
-            var square = jQuery('.' + pos, '#stepdisplay');
+            var square = jQuery('.' + pos, '#stepdisplay ' + '.' + dance);
             square.addClass(feet);
         }
     }
