@@ -85,14 +85,19 @@ jsapp = {
     },
     handleAudio: function(stepMap, callback){
         var self = this;
-        setInterval(function(){
+        var duration = self.getDuration();
+        var queryTime = function(){
             var currentTime = self.getCurrentTime();
             var step = stepMap[currentTime];
             if(step) {
                 self.showStep(step);
                 callback(step);
             }
-        }, 1)
+            if(duration > currentTime){
+                setZeroTimeout(queryTime);
+            }
+        }
+        setZeroTimeout(queryTime);
     },
     showStep: function(step){
         var self = this;
