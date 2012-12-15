@@ -86,15 +86,23 @@ jsapp = {
     handleAudio: function(stepMap, callback){
         var self = this;
         var duration = self.getDuration();
+        var lastTime = 0;
         var queryTime = function(){
             var currentTime = self.getCurrentTime();
-            var step = stepMap[currentTime];
-            if(step) {
-                self.showStep(step);
-                callback(step);
+            if(currentTime != lastTime) {
+                lastTime = currentTime;
+                var step = stepMap[currentTime];
+                if(step) {
+
+                    self.showStep(step);
+                    callback(step);
+                }
             }
-            if(duration > currentTime){
-                setZeroTimeout(queryTime);
+            if(duration > currentTime && currentTime != duration){
+                setTimeout(function() {
+                    setZeroTimeout(queryTime);
+                }, 5);
+
             }
         }
         setZeroTimeout(queryTime);
@@ -102,7 +110,7 @@ jsapp = {
     showStep: function(step){
         var self = this;
         if(!self.elems.span){
-            self.elems.span = jQuery('<span class="badge">10</span>');  
+            self.elems.span = jQuery('<span class="badge">10</span>');
         }
         if(step != self.elems.span.text()){
             self.elems.span.fadeIn(0);

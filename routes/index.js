@@ -3,7 +3,7 @@
  * GET home page.
  */
 
-getEncoding = function(filename){
+var getEncoding = function(filename){
     var extension = filename.split('.').slice(-1)[0];
     if(extension == 'mp3') return 'audio/mp3'
     if(extension == 'ogg') return 'audio/ogg'
