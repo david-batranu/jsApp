@@ -3,6 +3,7 @@ if(!window.jsapp){
 }
 
 jsapp = {
+    sc: null,
     steps: [],
     audio: null,
     start: null,
@@ -71,29 +72,51 @@ jsapp = {
         if(self.sound) return self.sound.position;
         if(self.audio) return self.getFloat(Big(self.audio.currentTime));
     },
-    handleSound: function(stepMap){
+    buildStepList: function(steptimes){
         var self = this;
-        var keys = Object.keys(stepMap);
-        jQuery.each(keys, function(i, key){
-            self.sound.onPosition(key, function(evt){
-                var value = stepMap[key];
-                if(value != 4 && value != 8){
-                    console.log(value);
-                };
+        if(self.sound) {
+            var array = jQuery.map(steptimes, function(i, o) {
+                return parseInt(i);
             });
-        });
+            return array;
+        };
+        if(self.audio) {
+            var array = jQuery.map(steptimes, function(i, o) {
+                return self.getFloat(i);
+            });
+            return array;
+        };
     },
-    handleAudio: function(stepMap, callback){
+    startPlay: function(callback){
+        var self = this;
+        if(self.sound) {
+            soundManager.play('aSound', {
+                onplay: function(){
+                    callback();
+                }
+            });
+        };
+        if(self.audio) {
+            self.audio.play();
+            callback();
+        };
+    },
+    handlePlayback: function(stepMap, callback){
         var self = this;
         var duration = self.getDuration();
-        var lastTime = 0;
+        var steptimes = Object.keys(stepMap);
+        var steplist = null;
+        var nextTime = null;
         var queryTime = function(){
+            if (steplist == null && nextTime == null){
+                steplist = self.buildStepList(steptimes);
+                nextTime = steplist[0];
+            }
             var currentTime = self.getCurrentTime();
-            if(currentTime != lastTime) {
-                lastTime = currentTime;
-                var step = stepMap[currentTime];
+            if(currentTime >= nextTime) {
+                var step = stepMap[nextTime];
+                nextTime = steplist.splice(0, 1)[0];
                 if(step) {
-
                     self.showStep(step);
                     callback(step);
                 }
@@ -101,11 +124,12 @@ jsapp = {
             if(duration > currentTime && currentTime != duration){
                 setTimeout(function() {
                     setZeroTimeout(queryTime);
-                }, 5);
-
+                }, 10);
             }
         }
-        setZeroTimeout(queryTime);
+        self.startPlay(function(){
+            setZeroTimeout(queryTime);
+        });
     },
     showStep: function(step){
         var self = this;
@@ -130,15 +154,21 @@ jsapp = {
         self.elems.span.removeClass(toRemove);
         self.elems.span.addClass(toAdd);
     },
-    smDeploy: function(){
+    smDeploy: function(callback){
         var self = this;
         soundManager.setup({
             url: '/swf/',
             onready: function() {
                 self.sound = soundManager.createSound({
                     id: 'aSound',
-                    url: '/files/salsa.mp3'
+                    url: '/files/salsalesson.mp3'
                 });
+                soundManager.load('aSound', {
+                    onload: function(){
+                        callback();
+                    }
+                });
+                
             },
             ontimeout: function() {
                 // Hrmm, SM2 could not start. Missing SWF? Flash blocked? Show an error, etc.?
@@ -149,7 +179,7 @@ jsapp = {
 
 
 jQuery(document).ready(function(){
-    jsapp.audio = jQuery('audio').get(0);
+    //jsapp.audio = jQuery('audio').get(0);
     //jsapp.smDeploy();
 })
 
