@@ -67,6 +67,10 @@ jsapp.view = {
             33463, 33855, 34273, 34952, 35370, 35762,
             36441, 36780, 37198, 37878, 38269, 38687
         ]
+        jQuery('#wait')
+            .removeClass('alert-info')
+            .addClass('alert-success')
+            .text('Dance!');
         jsapp.handlePlayback(jsapp.stepMap(), function(step) {
             var self = jsapp.view;
             jQuery('#stepdisplay .step').removeClass('lfoot rfoot fade');
