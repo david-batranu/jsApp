@@ -15,6 +15,7 @@ div#counter {
 }
 div#counter .badge {
     zoom: 10;
+    -moz-transform: scale(10);
 }
 div#stepdisplay {
     height: 500px;

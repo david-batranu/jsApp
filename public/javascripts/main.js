@@ -17,7 +17,7 @@ jsapp = {
         var duration = self.getDuration();
         var steps = self.steps.slice();
         var offset = self.getOffset(steps);
-        var last_steps = steps.slice();
+        var last_steps = steps.slice(6, steps.length);
         while(parseInt(steps.slice(-1)) < duration){
             var new_steps = jQuery.map(last_steps, function(o, i){
                 return self.getFloat(Big(o).plus(offset));
@@ -107,28 +107,31 @@ jsapp = {
         var steptimes = Object.keys(stepMap);
         var steplist = null;
         var nextTime = null;
+        var lastTime = 0;
+        var lastStep = 0;
         var queryTime = function(){
             if (steplist == null && nextTime == null){
                 steplist = self.buildStepList(steptimes);
                 nextTime = steplist[0];
             }
             var currentTime = self.getCurrentTime();
-            if(currentTime >= nextTime) {
+            if(currentTime + 100 != lastTime && currentTime + 100 >= nextTime) {
                 var step = stepMap[nextTime];
-                nextTime = steplist.splice(0, 1)[0];
-                if(step) {
+                if(step && step != lastStep) {
                     self.showStep(step);
                     callback(step);
+                    lastStep = step;
                 }
+                lastTime = currentTime + 100;
+                steplist = steplist.slice(1);
+                nextTime = steplist[0];
             }
             if(duration > currentTime && currentTime != duration){
-                setTimeout(function() {
-                    setZeroTimeout(queryTime);
-                }, 10);
+                //pass
             }
         }
         self.startPlay(function(){
-            setZeroTimeout(queryTime);
+            setInterval(queryTime, 100);
         });
     },
     showStep: function(step){
@@ -137,11 +140,11 @@ jsapp = {
             self.elems.span = jQuery('<span class="badge">10</span>');
         }
         if(step != self.elems.span.text()){
-            self.elems.span.fadeIn(0);
+            //self.elems.span.fadeIn(100);
             self.chooseClassForCounter(step);
             jQuery('#counter').append(self.elems.span);
             self.elems.span.text(step);
-            self.elems.span.fadeOut('1');
+            //self.elems.span.fadeOut('100');
         }
     },
     chooseClassForCounter: function(step){
@@ -158,6 +161,7 @@ jsapp = {
         var self = this;
         soundManager.setup({
             url: '/swf/',
+            debugMode: false,
             onready: function() {
                 self.sound = soundManager.createSound({
                     id: 'aSound',

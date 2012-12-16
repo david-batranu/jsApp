@@ -21,8 +21,11 @@
             }
         }
     }
-
-    window.addEventListener("message", handleMessage, true);
+    if (window.addEventListener){
+        window.addEventListener("message", handleMessage, true);
+    } else if (window.attachEvent){
+        window.attachEvent("message", handleMessage, true);
+    }
 
     // Add the one thing we want added to the window object.
     window.setZeroTimeout = setZeroTimeout;
