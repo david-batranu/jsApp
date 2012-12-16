@@ -101,6 +101,16 @@ jsapp = {
             callback();
         };
     },
+    stepDifference: function(currentTime, nextTime){
+        var self = this;
+        var difference = self.getFloat(Big(nextTime).minus(currentTime));
+        return difference
+    },
+    maxDifference: function(){
+        if(navigator.userAgent.indexOf('Chrome') != -1 ) return 100;
+        if(navigator.userAgent.indexOf('Firefox') != -1 ) return 300;
+        return 200;
+    },
     handlePlayback: function(stepMap, callback){
         var self = this;
         var duration = self.getDuration();
@@ -109,20 +119,21 @@ jsapp = {
         var nextTime = null;
         var lastTime = 0;
         var lastStep = 0;
+        var maxDifference = self.maxDifference();
         var queryTime = function(){
             if (steplist == null && nextTime == null){
                 steplist = self.buildStepList(steptimes);
                 nextTime = steplist[0];
             }
             var currentTime = self.getCurrentTime();
-            if(currentTime + 100 != lastTime && currentTime + 100 >= nextTime) {
+            if(self.stepDifference(currentTime, nextTime) <= maxDifference) {
                 var step = stepMap[nextTime];
                 if(step && step != lastStep) {
                     self.showStep(step);
                     callback(step);
                     lastStep = step;
                 }
-                lastTime = currentTime + 100;
+                lastTime = currentTime;
                 steplist = steplist.slice(1);
                 nextTime = steplist[0];
             }
@@ -131,7 +142,7 @@ jsapp = {
             }
         }
         self.startPlay(function(){
-            setInterval(queryTime, 100);
+            setInterval(queryTime, 10);
         });
     },
     showStep: function(step){
