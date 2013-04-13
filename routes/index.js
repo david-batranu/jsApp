@@ -11,9 +11,14 @@ var getEncoding = function(filename){
   }
 };
 
+var getSongKEY = function(id, property){
+  return 'song:' + id + ':' + property;
+};
+
 var db_getSong = function(id, db, callback){
-  var songIdKEY = 'song:' + id + ':name';
-  var songFilenameKEY = 'song:' + id + ':filename';
+  var songIdKEY = getSongKEY(id, 'name');
+  var songFilenameKEY = getSongKEY(id, 'filename');
+  var songStepmapKEY = getSongKEY(id, 'stepmap');
   var data = {};
   data.id = id;
   db.get(songIdKEY, function(err, reply){
@@ -21,12 +26,15 @@ var db_getSong = function(id, db, callback){
   });
   db.get(songFilenameKEY, function(err, reply){
     data.filename = reply;
+  });
+  db.get(songStepmapKEY, function(err, reply){
+    data.stepmap = JSON.parse(reply);
     callback(data);
   });
 };
 
 var db_delSong = function(id, db, callback){
-  var songIdKEY = 'song:' + id + ':name';
+  var songIdKEY = getSongKEY(id, 'name');
   db.get(songIdKEY, function(err, reply){
     var songNameKEY = 'song:' + reply +':id';
     db.srem('songs', songIdKEY);
@@ -43,7 +51,7 @@ exports.index = function(req, res){
 exports.addsong = function(req, res, db){
   db.incr('song:id', function(err, reply){
     var newSongId = reply;
-    var songIdKEY = 'song:' + newSongId + ':name';
+    var songIdKEY = getSongKEY(newSongId, 'name');
     var songNameKEY = 'song:' + req.query.songname +':id';
     db.set(songIdKEY, req.query.songname);
     db.set(songNameKEY, newSongId);
@@ -73,10 +81,13 @@ exports.editsong = function(req, res, db){
   var songId = req.query.id;
   var songTitle = req.query.title;
   var songFilename = req.query.filename;
-  var songIdKEY = 'song:' + songId + ':name';
-  var songFilenameKEY = 'song:' + songId + ':filename';
+  var songStepmap = req.query.stepmap;
+  var songIdKEY = getSongKEY(songId, 'name');
+  var songFilenameKEY = getSongKEY(songId, 'filename');
+  var songStepmapKEY = getSongKEY(songId, 'stepmap');
   db.set(songIdKEY, songTitle);
   db.set(songFilenameKEY, songFilename);
+  db.set(songStepmapKEY, songStepmap);
   res.send('200');
 };
 

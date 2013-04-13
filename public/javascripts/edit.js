@@ -3,6 +3,26 @@ if(!window.jsapp){
 }
 
 jsapp.edit = {
+  saveSongData: function(stepmap){
+    var songid = jQuery('#songid').val();
+    var title = jQuery('#title').val();
+    var filename = jQuery('#filename').val();
+    var queryparams = {
+      'id': songid,
+      'filename': filename,
+      'title': title
+    };
+    if(stepmap){
+      queryparams.stepmap = JSON.stringify(stepmap);
+    }
+    jQuery.ajax({
+      'url': '/editsong',
+      'data': queryparams,
+      'success': function(data){
+        document.location.reload();
+      }
+    });
+  },
   bindButtons: function(){
     var self = this;
     jQuery('#steps').on('click', function(){
@@ -24,7 +44,8 @@ jsapp.edit = {
     });
     jQuery('#generate').on('click', function(){
       jsapp.start = jsapp.steps[0];
-      console.log(jsapp.stepMap());
+      var stepmap = jsapp.stepMap();
+      self.saveSongData(stepmap);
       jsapp.restartPlay();
     });
     jQuery('#play').on('click', function(){
@@ -38,20 +59,7 @@ jsapp.edit = {
     });
     jQuery('#save').on('click', function(evt){
       evt.preventDefault();
-      var songid = jQuery('#songid').val();
-      var title = jQuery('#title').val();
-      var filename = jQuery('#filename').val();
-      jQuery.ajax({
-        'url': '/editsong',
-        'data': {
-          'id': songid,
-          'filename': filename,
-          'title': title
-        },
-        'success': function(data){
-          document.location.reload();
-        }
-      });
+      self.saveSongData();
       return false;
     });
   }
