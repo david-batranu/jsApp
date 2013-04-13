@@ -8,10 +8,11 @@ block content
     div.span12
       p
   div.row
-    div.span12
-      button#addsong.btn.btn-primary.pull-right
-        i.icon-music.icon-white
-        span  Add song
+    if isAuthenticated
+      div.span12
+        button#addsong.btn.btn-primary.pull-right
+          i.icon-music.icon-white
+          span  Add song
   div.row
     div.span12
       table.table.table-hover
@@ -28,12 +29,13 @@ block content
               button.view.btn.btn-success
                 i.icon-play.icon-white
                 span  View
-              button.edit.btn.btn-warning
-                i.icon-edit.icon-white
-                span  Edit
-              button.delete.btn.btn-danger
-                i.icon-trash.icon-white
-                span  Delete
+              if isAuthenticated
+                button.edit.btn.btn-warning
+                  i.icon-edit.icon-white
+                  span  Edit
+                button.delete.btn.btn-danger
+                  i.icon-trash.icon-white
+                  span  Delete
           tr#addnew
             td
             td

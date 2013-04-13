@@ -8,6 +8,8 @@
   "dependencies": {
     "express": "3.0.3",
     "jade": "*",
-    "redis": "*"
+    "redis": "*",
+    "passport": "*",
+    "passport-google": "*"
   }
 }

@@ -45,7 +45,10 @@ var db_delSong = function(id, db, callback){
 };
 
 exports.index = function(req, res){
-  res.render('index', { title: 'jsApp!' });
+  res.render('index', {
+    title: 'jsApp!',
+    isAuthenticated: req.isAuthenticated()
+  });
 };
 
 exports.addsong = function(req, res, db){
