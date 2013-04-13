@@ -6,6 +6,28 @@ block content
       p
   div.row
     div.span12
-      button#addsong.btn.btn-primary
+      button#addsong.btn.btn-primary.pull-right
         i.icon-music.icon-white
         span  Add song
+  div.row
+    div.span12
+      table.table.table-hover
+        thead
+          tr
+            th Id
+            th Song
+            th Controls
+        tbody
+          tr
+            td 1
+            td salsalsesson.mp3
+            td
+              button.btn.btn-success
+                i.icon-play.icon-white
+                span  View
+              button.btn.btn-warning
+                i.icon-edit.icon-white
+                span  Edit
+              button.btn.btn-danger
+                i.icon-trash.icon-white
+                span  Delete
