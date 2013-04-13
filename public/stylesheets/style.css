@@ -31,7 +31,7 @@ div#stepdisplay .stepcontainer {
 }
 div#stepdisplay .step {
     min-height: 70px;
-    
+
 }
 .step.lfoot {
     background-image: url('/images/lfoot.png');
@@ -58,4 +58,7 @@ div#stepdisplay .step {
 }
 .dancesection h4 {
     text-align: center;
+}
+.dancesection.filler {
+    border: none;
 }

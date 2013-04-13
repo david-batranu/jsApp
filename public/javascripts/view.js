@@ -4,14 +4,22 @@ if(!window.jsapp){
 
 jsapp.view = {
     stepmatrix: function(dance){
-        var guapea = {
+        var guapeaMan = {
             1: {'bottom': 'lfoot rfoot'},
             2: {'bottom': 'lfoot', 'right': 'rfoot'},
             3: {'right': 'lfoot rfoot'},
             5: {'right': 'lfoot', 'top': 'rfoot'},
             6: {'top': 'rfoot', 'left': 'lfoot'},
             7: {'left': 'lfoot', 'bottom': 'rfoot'}
-        }
+        };
+        var guapeaWoman = {
+            1: {'bottom': 'lfoot rfoot'},
+            2: {'bottom': 'rfoot', 'left': 'lfoot'},
+            3: {'left': 'lfoot rfoot'},
+            5: {'left': 'rfoot', 'top': 'lfoot'},
+            6: {'top': 'lfoot', 'right': 'rfoot'},
+            7: {'right': 'rfoot', 'bottom': 'lfoot'}
+        };
         var leftright = {
             1: {'left': 'lfoot', 'center': 'rfoot fade'},
             2: {'left': 'lfoot', 'center': 'rfoot'},
@@ -19,7 +27,7 @@ jsapp.view = {
             5: {'right': 'rfoot', 'center': 'lfoot fade'},
             6: {'right': 'rfoot', 'center': 'lfoot'},
             7: {'center': 'lfoot rfoot'}
-        }
+        };
         var frontback = {
             1: {'top': 'lfoot', 'center': 'rfoot fade'},
             2: {'top': 'lfoot', 'center': 'rfoot'},
@@ -27,13 +35,14 @@ jsapp.view = {
             5: {'bottom': 'rfoot', 'center': 'lfoot fade'},
             6: {'bottom': 'rfoot', 'center': 'lfoot'},
             7: {'center': 'lfoot rfoot'}
-        }
+        };
         var known = {
-            'guapea': guapea,
+            'guapea-man': guapeaMan,
+            'guapea-woman': guapeaWoman,
             'leftright': leftright,
             'frontback': frontback
-        }
-        return known[dance]
+        };
+        return known[dance];
     },
     startPlay: function(){
         var self = this;
@@ -66,7 +75,7 @@ jsapp.view = {
             30407, 30824, 31164, 31948, 32261, 32784,
             33463, 33855, 34273, 34952, 35370, 35762,
             36441, 36780, 37198, 37878, 38269, 38687
-        ]
+        ];
         jQuery('#wait')
             .removeClass('alert-info')
             .addClass('alert-success')
@@ -74,7 +83,8 @@ jsapp.view = {
         jsapp.handlePlayback(jsapp.stepMap(), function(step) {
             var self = jsapp.view;
             jQuery('#stepdisplay .step').removeClass('lfoot rfoot fade');
-            self.showDance(step, 'guapea');
+            self.showDance(step, 'guapea-man');
+            self.showDance(step, 'guapea-woman');
             self.showDance(step, 'leftright');
             self.showDance(step, 'frontback');
         });
@@ -87,9 +97,9 @@ jsapp.view = {
             square.addClass(feet);
         }
     }
-}
+};
 
 
 jQuery(document).ready(function(){
     jsapp.smDeploy(jsapp.view.startPlay);
-})
+});
