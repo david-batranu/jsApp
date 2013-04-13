@@ -48,6 +48,23 @@ app.get('/users', function(req, res){
   user.list(req, res, db);
 });
 
+app.get('/addsong', function(req, res){
+  routes.addsong(req, res, db);
+});
+
+app.get('/getsongs', function(req, res){
+  routes.getsongs(req, res, db);
+});
+
+app.get('/getsong/:id', function(req, res){
+  routes.getsong(req, res, db);
+});
+
+app.get('/delsong', function(req, res){
+  routes.delsong(req, res, db);
+});
+
+
 http.createServer(app).listen(app.get('port'), function(){
   console.log("Express server listening on port " + app.get('port'));
 });

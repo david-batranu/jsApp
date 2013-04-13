@@ -22,15 +22,22 @@ block content
             th Controls
         tbody
           tr
-            td 1
-            td salsalsesson.mp3
+            td.songid 1
+            td.songname salsalsesson.mp3
             td
-              button.btn.btn-success
+              button.view.btn.btn-success
                 i.icon-play.icon-white
                 span  View
-              button.btn.btn-warning
+              button.edit.btn.btn-warning
                 i.icon-edit.icon-white
                 span  Edit
-              button.btn.btn-danger
+              button.delete.btn.btn-danger
                 i.icon-trash.icon-white
                 span  Delete
+          tr#addnew
+            td
+            td
+              input#newsongname(type="text", name="newsong")
+            td
+              button#save.btn.btn-primary Save
+              button#cancel.btn.btn-inverse Cancel
