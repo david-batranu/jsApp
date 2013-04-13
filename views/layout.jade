@@ -12,13 +12,9 @@ html
         script(src='/javascripts/main.js')
         block scripts
     body
-    div.container.heading
-        div.row
-            div.span1
-            div.span10
-                block heading
-                    h1= title
-                    p Welcome to #{title}
-            div.span1
-    div.container.content
-        block content
+      div.container.heading
+        block heading
+            h1= title
+            p Welcome to #{title}
+      div.container.content
+          block content

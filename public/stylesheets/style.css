@@ -3,6 +3,8 @@ body {
 }
 div.container {
     background: #fff;
+    padding-left: 20px;
+    padding-right: 20px;
 }
 div.content {
     height: 1000px;
@@ -19,6 +21,7 @@ div#counter .badge {
 }
 div#stepdisplay {
     height: 500px;
+    margin-left: 115px;
 }
 div#stepdisplay .row {
     min-height: 70px;
@@ -52,6 +55,7 @@ div#stepdisplay .step {
 }
 .dancesection {
     border: 1px solid black;
+    margin-top: 10px;
     border-radius: 10px;
     -webkit-border-radius: 10px;
     -moz-border-radius: 10px;
