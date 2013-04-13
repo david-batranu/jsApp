@@ -63,13 +63,6 @@ jsapp = {
       self.audio.play();
     }
   },
-  printSteps: function(){
-    var self = this;
-    var last = null;
-    var stepMap = self.stepMap();
-    if (self.sound) self.handleSound(stepMap);
-    else if (self.audio) self.handleAudio(stepMap);
-  },
   getCurrentTime: function(){
     var self = this;
     if(self.sound) return self.sound.position;
@@ -172,7 +165,7 @@ jsapp = {
     self.elems.span.removeClass(toRemove);
     self.elems.span.addClass(toAdd);
   },
-  smDeploy: function(callback){
+  smDeploy: function(filepath, callback){
     var self = this;
     soundManager.setup({
       url: '/swf/',
@@ -180,7 +173,7 @@ jsapp = {
       onready: function() {
         self.sound = soundManager.createSound({
           id: 'aSound',
-        url: '/files/salsalesson.mp3'
+        url: filepath
         });
         soundManager.load('aSound', {
           onload: function(){

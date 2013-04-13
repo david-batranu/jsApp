@@ -66,3 +66,11 @@ div#stepdisplay .step {
 .dancesection.filler {
     border: none;
 }
+.stepmapview {
+    padding-top: 20px;
+}
+.stepmapitem {
+    font-size: 1.3em;
+    margin-left: 20px;
+    float: left;
+}

@@ -12,20 +12,27 @@ block heading
 
 block content
   div.row
-    div.span12
-      p
+    div.span1
+    div.span10
+      form.form-inline(method="POST")
+        input#songid(type="hidden", value=songid)
+        input#filepath(type="hidden", value=path)
+        label Title
+          input#title(type="text", name="songtitle", placeholder="Title", value=title)
+        label Filename
+          input#filename(type="text", name="songfile", placeholder="filename.mp3", value=songfile)
+        button#save.btn.btn-inverse Save
   div.row
     div.span1
     div.span5
-      audio(controls="controls")
-        source(src=path, type="audio/mp3")
+      button#play.btn.btn-primary Play
+      button#pause.btn.btn-warning Pause
+      button#restart.btn.btn-danger Restart
     div.span5
       button#steps.btn.btn-primary Add steps
       button#steps-clear.btn.btn-danger Clear
       button#generate.btn.btn-info Generate
     div.span1
   div.row
-    div.span2
-    div.span8
-      div#counter
-    div.span2
+    div.span12
+      div#stepmapview

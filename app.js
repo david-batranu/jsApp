@@ -43,7 +43,9 @@ app.configure('development', function(){
 
 app.get('/', routes.index);
 app.get('/view/:id', routes.view);
-app.get('/edit/:id', routes.edit);
+app.get('/edit/:id', function(req, res){
+  routes.edit(req, res, db);
+});
 app.get('/users', function(req, res){
   user.list(req, res, db);
 });
@@ -58,6 +60,10 @@ app.get('/getsongs', function(req, res){
 
 app.get('/getsong/:id', function(req, res){
   routes.getsong(req, res, db);
+});
+
+app.get('/editsong', function(req, res){
+  routes.editsong(req, res, db);
 });
 
 app.get('/delsong', function(req, res){

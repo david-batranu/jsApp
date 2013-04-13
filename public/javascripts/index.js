@@ -25,7 +25,7 @@ jsapp.index = {
           jQuery.ajax({
             'url': 'getsong/' + songid,
             'success': function(data){
-              jQuery('.songname', newlast).text(data);
+              jQuery('.songname', newlast).text(data.name);
               newlast.show();
             }
           });

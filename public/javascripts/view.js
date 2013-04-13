@@ -101,5 +101,5 @@ jsapp.view = {
 
 
 jQuery(document).ready(function(){
-  jsapp.smDeploy(jsapp.view.startPlay);
+  jsapp.smDeploy('/files/salsalesson.mp3', jsapp.view.startPlay);
 });
