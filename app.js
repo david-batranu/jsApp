@@ -50,9 +50,14 @@ app.configure('production', function(){
       realm: 'http://jsapp.seekahead.eu/'
     },
     function(identifier, profile, done) {
-      console.log(identifier);
-      console.log(profile);
-      console.log(done);
+      db.get('masteruser', function(err, reply){
+        var email = profile.emails[0].value;
+        if(email == reply){
+          done(null, email);
+        }else {
+          done(null, false);
+        }
+      });
     }
   ));
 });
