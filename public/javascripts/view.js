@@ -64,7 +64,7 @@ jsapp.view = {
       27350, 27768, 28134, 28839, 29257, 29675,
       30354, 30746, 31164, 31843, 32261, 32627
       ]*/
-    jsapp.steps = [
+    /*jsapp.steps = [
       9456, 9874, 10266, 10945, 11285, 11703,
       12487, 12852, 13192, 13871, 14289, 14655,
       15360, 15778, 16144, 16980, 17267, 17685,
@@ -75,7 +75,7 @@ jsapp.view = {
       30407, 30824, 31164, 31948, 32261, 32784,
       33463, 33855, 34273, 34952, 35370, 35762,
       36441, 36780, 37198, 37878, 38269, 38687
-        ];
+        ];*/
     jQuery('#wait')
       .removeClass('alert-info')
       .addClass('alert-success')
@@ -96,10 +96,24 @@ jsapp.view = {
       var square = jQuery('.' + pos, '#stepdisplay ' + '.' + dance);
       square.addClass(feet);
     }
+  },
+  preparePlay: function(callback){
+    var self = this;
+    var songid = jQuery('#songid').val();
+    jQuery.ajax({
+      'url': '/getsong/' + songid,
+      'success': function(data){
+        jsapp.steps = data.steps;
+        var filepath = '/files/' + data.filename;
+        callback(filepath);
+      }
+    });
   }
 };
 
 
 jQuery(document).ready(function(){
-  jsapp.smDeploy('/files/salsalesson.mp3', jsapp.view.startPlay);
+  jsapp.view.preparePlay(function(filename){
+    jsapp.smDeploy(filename, jsapp.view.startPlay);
+  });
 });

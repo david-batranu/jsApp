@@ -18,7 +18,7 @@ var getSongKEY = function(id, property){
 var db_getSong = function(id, db, callback){
   var songIdKEY = getSongKEY(id, 'name');
   var songFilenameKEY = getSongKEY(id, 'filename');
-  var songStepmapKEY = getSongKEY(id, 'stepmap');
+  var songStepsKEY = getSongKEY(id, 'steps');
   var data = {};
   data.id = id;
   db.get(songIdKEY, function(err, reply){
@@ -27,8 +27,8 @@ var db_getSong = function(id, db, callback){
   db.get(songFilenameKEY, function(err, reply){
     data.filename = reply;
   });
-  db.get(songStepmapKEY, function(err, reply){
-    data.stepmap = JSON.parse(reply);
+  db.get(songStepsKEY, function(err, reply){
+    data.steps = JSON.parse(reply);
     callback(data);
   });
 };
@@ -81,13 +81,13 @@ exports.editsong = function(req, res, db){
   var songId = req.query.id;
   var songTitle = req.query.title;
   var songFilename = req.query.filename;
-  var songStepmap = req.query.stepmap;
+  var songSteps = req.query.steps;
   var songIdKEY = getSongKEY(songId, 'name');
   var songFilenameKEY = getSongKEY(songId, 'filename');
-  var songStepmapKEY = getSongKEY(songId, 'stepmap');
+  var songStepsKEY = getSongKEY(songId, 'steps');
   db.set(songIdKEY, songTitle);
   db.set(songFilenameKEY, songFilename);
-  db.set(songStepmapKEY, songStepmap);
+  db.set(songStepsKEY, songSteps);
   res.send('200');
 };
 
@@ -98,12 +98,16 @@ exports.delsong = function(req, res, db){
   });
 };
 
-exports.view = function(req, res){
+exports.view = function(req, res, db){
+  db_getSong(req.params.id, db, function(data){
     res.render('view', {
-        title: req.params.id,
-        path: '/files/' + req.params.id,
-        encoding: getEncoding(req.params.id)
+        title: data.name,
+        songid: data.id,
+        songfile: data.filename,
+        path: '/files/' + data.filename,
+        encoding: getEncoding(data.filename)
     });
+  });
 };
 
 exports.edit = function(req, res, db){

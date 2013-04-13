@@ -3,7 +3,7 @@ if(!window.jsapp){
 }
 
 jsapp.edit = {
-  saveSongData: function(stepmap){
+  saveSongData: function(steps){
     var songid = jQuery('#songid').val();
     var title = jQuery('#title').val();
     var filename = jQuery('#filename').val();
@@ -12,8 +12,8 @@ jsapp.edit = {
       'filename': filename,
       'title': title
     };
-    if(stepmap){
-      queryparams.stepmap = JSON.stringify(stepmap);
+    if(steps){
+      queryparams.steps = JSON.stringify(steps);
     }
     jQuery.ajax({
       'url': '/editsong',
@@ -45,7 +45,7 @@ jsapp.edit = {
     jQuery('#generate').on('click', function(){
       jsapp.start = jsapp.steps[0];
       var stepmap = jsapp.stepMap();
-      self.saveSongData(stepmap);
+      self.saveSongData(jsapp.steps);
       jsapp.restartPlay();
     });
     jQuery('#play').on('click', function(){

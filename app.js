@@ -42,7 +42,9 @@ app.configure('development', function(){
 });
 
 app.get('/', routes.index);
-app.get('/view/:id', routes.view);
+app.get('/view/:id', function(req, res){
+  routes.view(req, res, db);
+});
 app.get('/edit/:id', function(req, res){
   routes.edit(req, res, db);
 });
