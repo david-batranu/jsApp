@@ -5,9 +5,9 @@
 
 var getEncoding = function(filename){
     var extension = filename.split('.').slice(-1)[0];
-    if(extension == 'mp3') return 'audio/mp3'
-    if(extension == 'ogg') return 'audio/ogg'
-}
+    if(extension == 'mp3') return 'audio/mp3';
+    if(extension == 'ogg') return 'audio/ogg';
+};
 
 exports.index = function(req, res){
   res.render('index', { title: 'jsApp!' });
